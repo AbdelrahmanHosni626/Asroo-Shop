@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../shared/components/components.dart';
-import '../../shared/cubit/cubit.dart';
 import '../signup/signup_screen.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -195,9 +194,7 @@ class LoginScreen extends StatelessWidget {
                                           Assets.iconsGoogleIcon,
                                           height: 40,
                                         ),
-                                        onPressed: () {
-                                          cubit.signInWithGoogle();
-                                        },
+                                        onPressed: () {},
                                       ),
                                     ],
                                   ),
