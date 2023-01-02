@@ -1,6 +1,5 @@
 import 'package:asroo_shop/shared/cubit/cubit.dart';
 import 'package:asroo_shop/shared/cubit/states.dart';
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -116,22 +115,6 @@ void showToast({
     backgroundColor: chooseToastColor(state),
     textColor: Colors.white,
     fontSize: 16.0,
-  );
-}
-
-void showSnack({
-  // required String text,
-  required ToastStates state,
-}) {
-  SnackBar(
-    elevation: 0,
-    behavior: SnackBarBehavior.floating,
-    backgroundColor: chooseToastColor(state),
-    content: AwesomeSnackbarContent(
-      title: 'Asroo Shop',
-      message: 'Hello',
-      contentType: ContentType.failure,
-    ),
   );
 }
 

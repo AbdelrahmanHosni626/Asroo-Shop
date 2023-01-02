@@ -6,7 +6,14 @@ ThemeData lightTheme = ThemeData(
   primaryColor: mainColor,
   primarySwatch: swatchColor,
   appBarTheme: const AppBarTheme(
-    color: Colors.white,
+    color: mainColor,
+    elevation: 0,
+  ),
+  bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+    selectedItemColor: mainColor,
+    unselectedItemColor: Colors.black,
+    showSelectedLabels: false,
+    showUnselectedLabels: false,
   ),
   inputDecorationTheme: const InputDecorationTheme(
     prefixIconColor: mainColor,
@@ -22,7 +29,14 @@ ThemeData darkTheme = ThemeData(
   primaryColor: darkGreyColor,
   primarySwatch: darkSwatchColor,
   appBarTheme: const AppBarTheme(
-    color: darkGreyColor,
+    color: pinkColor,
+  ),
+  bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+    backgroundColor: darkGreyColor,
+    selectedItemColor: pinkColor,
+    unselectedItemColor: Colors.white,
+    showSelectedLabels: false,
+    showUnselectedLabels: false,
   ),
   inputDecorationTheme: const InputDecorationTheme(
     prefixIconColor: pinkColor,
