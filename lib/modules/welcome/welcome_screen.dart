@@ -1,6 +1,7 @@
 import 'package:asroo_shop/modules/login/login_screen.dart';
 import 'package:asroo_shop/modules/signup/signup_screen.dart';
 import 'package:flutter/material.dart';
+import '../../generated/assets.dart';
 
 import '../../shared/components/components.dart';
 import '../../shared/styles/colors.dart';
@@ -17,7 +18,7 @@ class WelcomeScreen extends StatelessWidget {
             width: double.infinity,
             height: double.infinity,
             child: Image.asset(
-              'assets/images/background.jpg',
+              Assets.assetsImagesBackground,
               fit: BoxFit.cover,
             ),
           ),

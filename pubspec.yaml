@@ -39,6 +39,13 @@ dependencies:
   flutter_svg: ^1.1.6
   flutter_bloc: ^8.1.1
   bloc: ^8.1.0
+  firebase_core: ^2.4.1
+  firebase_auth: ^4.2.4
+  conditional_builder_null_safety: ^0.0.6
+  fluttertoast: ^8.1.2
+  awesome_snackbar_content: ^0.1.0
+  cloud_firestore: ^4.3.1
+  google_sign_in: ^5.4.2
 
 dev_dependencies:
   flutter_test:
