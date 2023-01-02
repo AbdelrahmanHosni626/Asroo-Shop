@@ -1,9 +1,9 @@
 import 'package:asroo_shop/shared/cubit/cubit.dart';
 import 'package:asroo_shop/shared/cubit/states.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../styles/colors.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 Widget backButton(context) => IconButton(
       onPressed: () {
@@ -70,7 +70,7 @@ Widget defaultFormField({
       builder: (BuildContext context, Object? state) {
         return TextFormField(
           style: TextStyle(
-            color: AppCubit.get(context).isDark ? Colors.white : Colors.black ,
+            color: AppCubit.get(context).isDark ? Colors.white : Colors.black,
           ),
           controller: controller,
           keyboardType: inputType,
@@ -93,16 +93,65 @@ Widget defaultFormField({
             ),
             suffixIcon: suffix != null
                 ? IconButton(
-              onPressed: () {
-                suffixPressed!();
-              },
-              icon: Icon(suffix),
-            )
+                    onPressed: () {
+                      suffixPressed!();
+                    },
+                    icon: Icon(suffix),
+                  )
                 : null,
           ),
         );
       },
     );
+
+void showToast({
+  required String text,
+  required ToastStates state,
+}) {
+  Fluttertoast.showToast(
+    msg: text,
+    toastLength: Toast.LENGTH_LONG,
+    gravity: ToastGravity.BOTTOM,
+    timeInSecForIosWeb: 5,
+    backgroundColor: chooseToastColor(state),
+    textColor: Colors.white,
+    fontSize: 16.0,
+  );
+}
+
+void showSnack({
+  // required String text,
+  required ToastStates state,
+}) {
+  SnackBar(
+    elevation: 0,
+    behavior: SnackBarBehavior.floating,
+    backgroundColor: chooseToastColor(state),
+    content: AwesomeSnackbarContent(
+      title: 'Asroo Shop',
+      message: 'Hello',
+      contentType: ContentType.failure,
+    ),
+  );
+}
+
+enum ToastStates { success, error, warning }
+
+Color chooseToastColor(ToastStates state) {
+  Color color;
+  switch (state) {
+    case ToastStates.success:
+      color = Colors.green;
+      break;
+    case ToastStates.error:
+      color = Colors.red;
+      break;
+    case ToastStates.warning:
+      color = Colors.yellow;
+      break;
+  }
+  return color;
+}
 
 void navigateTo(context, widget) =>
     Navigator.push(context, MaterialPageRoute(builder: (context) => widget));
