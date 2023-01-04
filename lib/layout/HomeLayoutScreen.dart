@@ -20,7 +20,7 @@ class HomeLayoutScreen extends StatelessWidget {
             elevation: 0,
             title: Center(
               child: defaultText(
-                text: 'Asroo Shop',
+                text: cubit.titles[cubit.currentIndex],
                 fontSize: 30,
               ),
             ),

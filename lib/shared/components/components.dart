@@ -17,10 +17,14 @@ Widget defaultText({
   double? fontSize,
   FontWeight? fontWeight,
   TextDecoration? textDecoration,
+  int? maxLines,
+  TextOverflow? textOverflow,
 }) =>
     Text(
       text,
+      maxLines: maxLines,
       style: TextStyle(
+        overflow: textOverflow,
         color: color,
         fontSize: fontSize,
         fontWeight: fontWeight,
