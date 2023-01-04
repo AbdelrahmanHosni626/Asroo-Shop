@@ -66,4 +66,49 @@ class AsrooShopCubit extends Cubit<AsrooShopStates> {
       emit(AsrooShopGetProductsSuccessState());
     }
   }
+
+  List<dynamic> favorites = [];
+  bool isFavorite = false;
+  late int existingIndex;
+
+  void getFavorites(int productId) {
+    existingIndex = favorites.indexWhere((element) => element['id'] == productId);
+
+    if(existingIndex >= 0)
+      {
+        favorites.removeAt(existingIndex);
+      } else {
+      favorites.add(
+        products.firstWhere((element) => element['id'] == productId),
+      );
+    }
+    emit(AsrooShopGetFavoritesState());
+  }
+  
+  bool isFavorites(int productId)
+  {
+    return favorites.any((element) => element['id'] == productId);
+  }
+
+
+  List<dynamic> productDetails = [];
+
+  void getSingleProduct() {
+    if (productDetails.isEmpty) {
+      emit(AsrooShopGetSingleProductLoadingState());
+
+      DioHelper.getData(
+        url: '/products/1',
+      ).then((value) {
+        productDetails = value.data;
+        emit(AsrooShopGetSingleProductSuccessState());
+      }).catchError((error) {
+        print(error.toString());
+
+        emit(AsrooShopGetSingleProductErrorState(error.toString()));
+      });
+    } else {
+      emit(AsrooShopGetSingleProductSuccessState());
+    }
+  }
 }

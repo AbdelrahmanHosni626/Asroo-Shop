@@ -3,4 +3,4 @@ String validationEmail =
 
 String validationName = r'^[a-z A-Z]+$';
 
-String baseUrl = 'https://api.escuelajs.co/api/v1';
+// dynamic getFavorites = '';
