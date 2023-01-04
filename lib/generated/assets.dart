@@ -24,6 +24,7 @@ class Assets {
   static const String imagesEmail = 'assets/images/email.png';
   static const String imagesFacebook = 'assets/images/facebook.png';
   static const String imagesGoogle = 'assets/images/google.png';
+  static const String imagesHeart = 'assets/images/heart.png';
   static const String imagesLock = 'assets/images/lock.png';
   static const String imagesUser = 'assets/images/user.png';
 

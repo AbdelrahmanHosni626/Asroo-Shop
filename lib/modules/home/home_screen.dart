@@ -1,5 +1,6 @@
 import 'package:asroo_shop/layout/cubit/cubit.dart';
 import 'package:asroo_shop/layout/cubit/states.dart';
+import 'package:asroo_shop/modules/product_details/product_details_screen.dart';
 import 'package:asroo_shop/shared/styles/colors.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
@@ -141,121 +142,132 @@ class HomeScreen extends StatelessWidget {
         fallback: (BuildContext context) => const CircularProgressIndicator(),
       );
 
-  Widget buildProductItem(context, product) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 2),
-        child: Container(
-          decoration: BoxDecoration(
-            color: AsrooShopCubit.get(context).isDark
-                ? darkGreyColor
-                : Colors.white,
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(
-              color: AsrooShopCubit.get(context).isDark ? pinkColor : mainColor,
-              width: 2,
+  Widget buildProductItem(context, product) => InkWell(
+    onTap: (){navigateTo(context, ProductDetailsScreen());},
+    child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 2),
+          child: Container(
+            decoration: BoxDecoration(
+              color: AsrooShopCubit.get(context).isDark
+                  ? darkGreyColor
+                  : Colors.white,
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(
+                color: AsrooShopCubit.get(context).isDark ? pinkColor : mainColor,
+                width: 2,
+              ),
             ),
-          ),
-          child: Column(
-            children: [
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.favorite_border_outlined,
-                      color: AsrooShopCubit.get(context).isDark
-                          ? Colors.white
-                          : Colors.black,
-                    ),
-                  ),
-                  const Spacer(),
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.add_shopping_cart,
-                      color: AsrooShopCubit.get(context).isDark
-                          ? Colors.white
-                          : Colors.black,
-                    ),
-                  ),
-                ],
-              ),
-              Container(
-                width: 140,
-                height: 140,
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(20),
-                  image: DecorationImage(
-                    image: NetworkImage(
-                      '${product['image']}',
-                    ),
-                    fit: BoxFit.fill,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 10),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: defaultText(
-                  text: '${product['title']}',
-                  color: AsrooShopCubit.get(context).isDark
-                      ? Colors.white
-                      : Colors.black,
-                  fontSize: 18,
-                  maxLines: 2,
-                  textOverflow: TextOverflow.ellipsis,
-                ),
-              ),
-              const SizedBox(height: 10),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Column(
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    defaultText(
-                      text: '\$ ${product['price']}',
-                      fontSize: 16,
-                      color: AsrooShopCubit.get(context).isDark
-                          ? Colors.white
-                          : Colors.black,
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: AsrooShopCubit.get(context).isDark
-                              ? pinkColor
-                              : mainColor,
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(10),
+                    IconButton(
+                      onPressed: ()
+                      {
+                        AsrooShopCubit.get(context).getFavorites(product['id']);
+                      },
+                      icon: AsrooShopCubit.get(context).isFavorites(product['id']) ? Icon(
+                        Icons.favorite,
+                        color: AsrooShopCubit.get(context).isDark
+                            ? pinkColor
+                            : mainColor,
+                      ) : Icon(
+                        Icons.favorite_border_outlined,
+                        color: AsrooShopCubit.get(context).isDark
+                            ? pinkColor
+                            : mainColor,
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: Row(
-                          children: [
-                            defaultText(
-                              text: '${product['rating']['rate']}',
-                              fontSize: 16,
-                              color: AsrooShopCubit.get(context).isDark
-                                  ? Colors.white
-                                  : Colors.black,
-                            ),
-                            const SizedBox(width: 5),
-                            const Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                              size: 15,
-                            ),
-                          ],
-                        ),
+                    ),
+                    const Spacer(),
+                    IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.add_shopping_cart,
+                        color: AsrooShopCubit.get(context).isDark
+                            ? Colors.white
+                            : Colors.black,
                       ),
                     ),
                   ],
                 ),
-              ),
-            ],
+                Container(
+                  width: 140,
+                  height: 140,
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(20),
+                    image: DecorationImage(
+                      image: NetworkImage(
+                        '${product['image']}',
+                      ),
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: defaultText(
+                    text: '${product['title']}',
+                    color: AsrooShopCubit.get(context).isDark
+                        ? Colors.white
+                        : Colors.black,
+                    fontSize: 18,
+                    maxLines: 2,
+                    textOverflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      defaultText(
+                        text: '\$ ${product['price']}',
+                        fontSize: 16,
+                        color: AsrooShopCubit.get(context).isDark
+                            ? Colors.white
+                            : Colors.black,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: AsrooShopCubit.get(context).isDark
+                                ? pinkColor
+                                : mainColor,
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: Row(
+                            children: [
+                              defaultText(
+                                text: '${product['rating']['rate']}',
+                                fontSize: 16,
+                                color: AsrooShopCubit.get(context).isDark
+                                    ? Colors.white
+                                    : Colors.black,
+                              ),
+                              const SizedBox(width: 5),
+                              const Icon(
+                                Icons.star,
+                                color: Colors.amber,
+                                size: 15,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
-      );
+  );
 }

@@ -15,3 +15,17 @@ class AsrooShopGetProductsErrorState extends AsrooShopStates {
 
   AsrooShopGetProductsErrorState(this.error);
 }
+
+class AsrooShopGetSingleProductLoadingState extends AsrooShopStates {}
+
+class AsrooShopGetSingleProductSuccessState extends AsrooShopStates {}
+
+class AsrooShopGetSingleProductErrorState extends AsrooShopStates {
+  final String error;
+
+  AsrooShopGetSingleProductErrorState(this.error);
+}
+
+class AsrooShopGetFavoritesState extends AsrooShopStates {}
+
+class AsrooShopAddToFavoritesState extends AsrooShopStates {}

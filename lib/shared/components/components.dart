@@ -19,10 +19,12 @@ Widget defaultText({
   TextDecoration? textDecoration,
   int? maxLines,
   TextOverflow? textOverflow,
+  TextAlign? textAlign,
 }) =>
     Text(
       text,
       maxLines: maxLines,
+      textAlign: textAlign,
       style: TextStyle(
         overflow: textOverflow,
         color: color,
