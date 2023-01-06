@@ -136,13 +136,13 @@ class HomeScreen extends StatelessWidget {
           children: List.generate(
             AsrooShopCubit.get(context).products.length,
             (index) => buildProductItem(
-                context, AsrooShopCubit.get(context).products[index]),
+                context, AsrooShopCubit.get(context).products[index], index),
           ),
         ),
         fallback: (BuildContext context) => const CircularProgressIndicator(),
       );
 
-  Widget buildProductItem(context, product) => InkWell(
+  Widget buildProductItem(context, product, index) => InkWell(
     onTap: (){navigateTo(context, ProductDetailsScreen());},
     child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 2),
@@ -153,7 +153,9 @@ class HomeScreen extends StatelessWidget {
                   : Colors.white,
               borderRadius: BorderRadius.circular(20),
               border: Border.all(
-                color: AsrooShopCubit.get(context).isDark ? pinkColor : mainColor,
+                color: AsrooShopCubit.get(context).isDark
+                    ?pinkColor
+                    :mainColor,
                 width: 2,
               ),
             ),
@@ -181,7 +183,10 @@ class HomeScreen extends StatelessWidget {
                     ),
                     const Spacer(),
                     IconButton(
-                      onPressed: () {},
+                      onPressed: ()
+                      {
+                        AsrooShopCubit.get(context).addProductToCart(product[index]);
+                      },
                       icon: Icon(
                         Icons.add_shopping_cart,
                         color: AsrooShopCubit.get(context).isDark

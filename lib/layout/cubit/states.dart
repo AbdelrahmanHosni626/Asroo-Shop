@@ -29,3 +29,5 @@ class AsrooShopGetSingleProductErrorState extends AsrooShopStates {
 class AsrooShopGetFavoritesState extends AsrooShopStates {}
 
 class AsrooShopAddToFavoritesState extends AsrooShopStates {}
+
+class AsrooShopAddToCartState extends AsrooShopStates {}
