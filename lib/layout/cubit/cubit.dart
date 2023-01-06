@@ -1,4 +1,5 @@
 import 'package:asroo_shop/layout/cubit/states.dart';
+import 'package:asroo_shop/models/products/product_model.dart';
 import 'package:asroo_shop/modules/favorites/favorites_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -72,24 +73,22 @@ class AsrooShopCubit extends Cubit<AsrooShopStates> {
   late int existingIndex;
 
   void getFavorites(int productId) {
-    existingIndex = favorites.indexWhere((element) => element['id'] == productId);
+    existingIndex =
+        favorites.indexWhere((element) => element['id'] == productId);
 
-    if(existingIndex >= 0)
-      {
-        favorites.removeAt(existingIndex);
-      } else {
+    if (existingIndex >= 0) {
+      favorites.removeAt(existingIndex);
+    } else {
       favorites.add(
         products.firstWhere((element) => element['id'] == productId),
       );
     }
     emit(AsrooShopGetFavoritesState());
   }
-  
-  bool isFavorites(int productId)
-  {
+
+  bool isFavorites(int productId) {
     return favorites.any((element) => element['id'] == productId);
   }
-
 
   List<dynamic> productDetails = [];
 
@@ -110,5 +109,38 @@ class AsrooShopCubit extends Cubit<AsrooShopStates> {
     } else {
       emit(AsrooShopGetSingleProductSuccessState());
     }
+  }
+
+  final List<ProductsModel> productToCart = [];
+
+  Map quantity()
+  {
+    var quantity = {};
+    productToCart.forEach((element) {
+      if (quantity.containsKey(ProductsModel)) {
+        quantity[ProductsModel] += 1;
+        quantity.entries.map((e) => e.key.price * e.value).toList();
+        print(quantity.values.toString());
+      } else {
+        quantity[ProductsModel] = 1;
+        print(quantity.values.toString());
+      }
+    });
+    emit(AsrooShopAddToCartState());
+    return quantity;
+  }
+
+  var productMap = {};
+
+  void addProductToCart(ProductsModel productsModel) {
+    if (productMap.containsKey(ProductsModel)) {
+      productMap[ProductsModel] += 1;
+      productMap.entries.map((e) => e.key.price * e.value).toList();
+      print(productMap.values.toString());
+    } else {
+      productMap[productsModel] = 1;
+      print(productMap.values.toString());
+    }
+    emit(AsrooShopAddToCartState());
   }
 }

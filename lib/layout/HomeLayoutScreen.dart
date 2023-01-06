@@ -1,5 +1,6 @@
 import 'package:asroo_shop/layout/cubit/cubit.dart';
 import 'package:asroo_shop/layout/cubit/states.dart';
+import 'package:asroo_shop/modules/cart_items/cart_items_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -27,7 +28,7 @@ class HomeLayoutScreen extends StatelessWidget {
             actions: [
               IconButton(
                 onPressed: () {
-                  cubit.changeAppMode();
+                  navigateTo(context, CartItemsScreen());
                 },
                 icon: const Icon(
                   Icons.shopping_basket,
