@@ -26,6 +26,8 @@ class Assets {
   static const String imagesGoogle = 'assets/images/google.png';
   static const String imagesHeart = 'assets/images/heart.png';
   static const String imagesLock = 'assets/images/lock.png';
+  static const String imagesSearchEmpryLight = 'assets/images/search_empry_light.png';
+  static const String imagesSearchEmptyDark = 'assets/images/search_empty_dark.png';
   static const String imagesUser = 'assets/images/user.png';
 
 }
