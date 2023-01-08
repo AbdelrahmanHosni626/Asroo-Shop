@@ -45,7 +45,7 @@ class AsrooShopCubit extends Cubit<AsrooShopStates> {
     emit(AsrooShopChangeBottomNavBarState());
   }
 
-  List<dynamic> products = [];
+  List<dynamic> products = <ProductsModel>[];
 
   void getProducts() {
     if (products.isEmpty) {
@@ -116,8 +116,7 @@ class AsrooShopCubit extends Cubit<AsrooShopStates> {
 
   final List<ProductsModel> productToCart = [];
 
-  Map quantity()
-  {
+  Map quantity() {
     var quantity = {};
     productToCart.forEach((element) {
       if (quantity.containsKey(ProductsModel)) {
@@ -147,7 +146,6 @@ class AsrooShopCubit extends Cubit<AsrooShopStates> {
     emit(AsrooShopAddToCartState());
   }
 
-
   UserModel? userModel;
 
   void getUserData() {
@@ -163,7 +161,32 @@ class AsrooShopCubit extends Cubit<AsrooShopStates> {
     });
   }
 
-
-  List<String> languages = ['Arabic 🇸🇦', 'English 🇬🇧󠁧󠁢󠁥󠁮󠁧󠁿', 'France 🇫🇷󠁧󠁢󠁥󠁮󠁧󠁿'];
+  List<String> languages = [
+    'Arabic 🇸🇦',
+    'English 🇬🇧󠁧󠁢󠁥󠁮󠁧󠁿',
+    'France 🇫🇷󠁧󠁢󠁥󠁮󠁧󠁿'
+  ];
   String? selectedLang;
+
+  List<dynamic> searchForProduct = <ProductsModel>[];
+  var searchController = TextEditingController();
+
+  void addSearchToList(String searchedProduct) {
+    searchForProduct = [];
+
+    searchForProduct = products.where((element) {
+
+      return element['title'].toLowerCase().contains(searchedProduct) ||
+          element['price'].toString().toLowerCase().contains(searchedProduct);
+    }).toList();
+
+    emit(AsrooShopAddSearchToListState());
+  }
+
+  void clearSearch()
+  {
+    searchController.clear();
+    searchForProduct = [];
+    emit(AsrooShopClearSearchState());
+  }
 }

@@ -1,129 +1,85 @@
 import 'package:asroo_shop/layout/cubit/cubit.dart';
 import 'package:asroo_shop/layout/cubit/states.dart';
-import 'package:asroo_shop/modules/product_details/product_details_screen.dart';
-import 'package:asroo_shop/shared/styles/colors.dart';
+import 'package:asroo_shop/shared/components/components.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../shared/components/components.dart';
-import '../search/search_screen.dart';
+import '../../shared/styles/colors.dart';
+import '../product_details/product_details_screen.dart';
 
-class HomeScreen extends StatelessWidget {
-  HomeScreen({Key? key}) : super(key: key);
+class SearchScreen extends StatelessWidget {
+  const SearchScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AsrooShopCubit, AsrooShopStates>(
       listener: (BuildContext context, state) {},
       builder: (BuildContext context, Object? state) {
-        var list = AsrooShopCubit.get(context).products;
-
+        var list = AsrooShopCubit.get(context).searchForProduct;
         return GestureDetector(
           onTap: FocusScope.of(context).unfocus,
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
+          child: Scaffold(
+            appBar: AppBar(
+              leading: backButton(context),
+              title: const Text('Search'),
+            ),
+            body: Column(
               children: [
-                Column(
-                  children: [
-                    Container(
-                      height: 180,
-                      decoration: BoxDecoration(
-                        color: AsrooShopCubit.get(context).isDark
-                            ? pinkColor
-                            : mainColor,
-                        borderRadius: const BorderRadius.only(
-                          bottomLeft: Radius.circular(20),
-                          bottomRight: Radius.circular(20),
-                        ),
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: TextFormField(
+                    onFieldSubmitted: (c) {
+                      FocusScope.of(context).unfocus;
+                    },
+                    controller: AsrooShopCubit.get(context).searchController,
+                    keyboardType: TextInputType.text,
+                    cursorColor: Colors.black,
+                    onChanged: (value) {
+                      AsrooShopCubit.get(context).addSearchToList(value);
+                      print(value);
+                    },
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      focusColor: Colors.red,
+                      contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                      prefixIcon: const Icon(
+                        Icons.search,
+                        color: Colors.grey,
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(height: 20),
-                            defaultText(
-                              text: 'Find Your',
-                              fontSize: 25,
-                            ),
-                            const SizedBox(height: 5),
-                            defaultText(
-                              text: 'INSPIRATION',
-                              fontSize: 25,
-                            ),
-                            const SizedBox(height: 10),
-                            TextField(
-                              onTap: ()
-                              {
-                                navigateTo(context, SearchScreen());
-                              },
-                              keyboardType: TextInputType.text,
-                              cursorColor: Colors.black,
-                              onChanged: (value)
-                              {
-                                AsrooShopCubit.get(context).addSearchToList(value);
-                              },
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: Colors.white,
-                                focusColor: Colors.red,
-                                contentPadding:
-                                    const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                                prefixIcon: const Icon(
-                                  Icons.search,
-                                  color: Colors.grey,
-                                ),
-                                hintText: 'Search you\'re looking for',
-                                hintStyle: const TextStyle(
-                                    color: Colors.black45,
-                                    fontWeight: FontWeight.w500),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide:
-                                      const BorderSide(color: Colors.white),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide:
-                                      const BorderSide(color: Colors.white),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderSide:
-                                      const BorderSide(color: Colors.white),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                focusedErrorBorder: OutlineInputBorder(
-                                  borderSide:
-                                      const BorderSide(color: Colors.white),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          AsrooShopCubit.get(context).clearSearch();
+                        },
+                        icon: const Icon(Icons.close),
+                      ),
+                      hintText: 'Search you\'re looking for',
+                      hintStyle: const TextStyle(
+                          color: Colors.black45, fontWeight: FontWeight.w500),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.white),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.white),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.white),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    const SizedBox(height: 10),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: defaultText(
-                          text: 'Categories',
-                          color: AsrooShopCubit.get(context).isDark
-                              ? Colors.white
-                              : Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    productsBuilder(context, list),
-                  ],
+                  ),
                 ),
+                const SizedBox(
+                  height: 50,
+                ),
+                productsBuilder(context, list, isSearch: true),
               ],
             ),
           ),
@@ -132,22 +88,35 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget productsBuilder(context, list) => ConditionalBuilder(
-        condition: AsrooShopCubit.get(context).products.isNotEmpty,
-        builder: (BuildContext context) => GridView.count(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          crossAxisCount: 2,
-          mainAxisSpacing: 15,
-          crossAxisSpacing: 15,
-          childAspectRatio: 1 / 1.70,
-          children: List.generate(
-            AsrooShopCubit.get(context).products.length,
-            (index) => buildProductItem(
-                context, AsrooShopCubit.get(context).products[index], index),
+  Widget productsBuilder(context, list, {isSearch = false}) =>
+      ConditionalBuilder(
+        condition: AsrooShopCubit.get(context).searchForProduct.isNotEmpty,
+        builder: (BuildContext context) => Expanded(
+          child: GridView.count(
+            crossAxisCount: 2,
+            mainAxisSpacing: 15,
+            crossAxisSpacing: 15,
+            childAspectRatio: 1 / 1.70,
+            children: List.generate(
+              AsrooShopCubit.get(context).searchForProduct.length,
+                  (index) {
+                if (AsrooShopCubit.get(context)
+                    .searchForProduct
+                    .isNotEmpty
+                ) {
+                  return buildProductItem(
+                      context,
+                      AsrooShopCubit.get(context).searchForProduct[index],
+                      index);
+                } else {
+                  return Container();
+                }
+              },
+            ),
           ),
         ),
-        fallback: (BuildContext context) => const CircularProgressIndicator(),
+        fallback: (BuildContext context) =>
+            isSearch ? Container() : const CircularProgressIndicator(),
       );
 
   Widget buildProductItem(context, product, index) => InkWell(

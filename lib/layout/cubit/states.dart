@@ -41,3 +41,7 @@ class AsrooShopGetUserDataErrorState extends AsrooShopStates {
 
   AsrooShopGetUserDataErrorState(this.error);
 }
+
+class AsrooShopAddSearchToListState extends AsrooShopStates {}
+
+class AsrooShopClearSearchState extends AsrooShopStates {}
