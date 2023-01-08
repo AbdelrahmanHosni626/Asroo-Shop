@@ -175,7 +175,6 @@ class AsrooShopCubit extends Cubit<AsrooShopStates> {
     searchForProduct = [];
 
     searchForProduct = products.where((element) {
-
       return element['title'].toLowerCase().contains(searchedProduct) ||
           element['price'].toString().toLowerCase().contains(searchedProduct);
     }).toList();
@@ -183,8 +182,7 @@ class AsrooShopCubit extends Cubit<AsrooShopStates> {
     emit(AsrooShopAddSearchToListState());
   }
 
-  void clearSearch()
-  {
+  void clearSearch() {
     searchController.clear();
     searchForProduct = [];
     emit(AsrooShopClearSearchState());

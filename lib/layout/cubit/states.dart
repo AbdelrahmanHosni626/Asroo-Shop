@@ -45,3 +45,13 @@ class AsrooShopGetUserDataErrorState extends AsrooShopStates {
 class AsrooShopAddSearchToListState extends AsrooShopStates {}
 
 class AsrooShopClearSearchState extends AsrooShopStates {}
+
+class AsrooShopGetCategoriesLoadingState extends AsrooShopStates {}
+
+class AsrooShopGetCategoriesSuccessState extends AsrooShopStates {}
+
+class AsrooShopGetCategoriesErrorState extends AsrooShopStates {
+  final String error;
+
+  AsrooShopGetCategoriesErrorState(this.error);
+}
