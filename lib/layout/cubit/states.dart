@@ -31,3 +31,13 @@ class AsrooShopGetFavoritesState extends AsrooShopStates {}
 class AsrooShopAddToFavoritesState extends AsrooShopStates {}
 
 class AsrooShopAddToCartState extends AsrooShopStates {}
+
+class AsrooShopGetUserDataLoadingState extends AsrooShopStates {}
+
+class AsrooShopGetUserDataSuccessState extends AsrooShopStates {}
+
+class AsrooShopGetUserDataErrorState extends AsrooShopStates {
+  final String error;
+
+  AsrooShopGetUserDataErrorState(this.error);
+}

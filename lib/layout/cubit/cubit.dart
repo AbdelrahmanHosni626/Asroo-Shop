@@ -1,12 +1,15 @@
 import 'package:asroo_shop/layout/cubit/states.dart';
 import 'package:asroo_shop/models/products/product_model.dart';
 import 'package:asroo_shop/modules/favorites/favorites_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../models/user/user_model.dart';
 import '../../modules/category/category_screen.dart';
 import '../../modules/home/home_screen.dart';
 import '../../modules/settings/settings_screen.dart';
+import '../../shared/components/constants.dart';
 import '../../shared/network/remote/dio_helper.dart';
 
 class AsrooShopCubit extends Cubit<AsrooShopStates> {
@@ -143,4 +146,24 @@ class AsrooShopCubit extends Cubit<AsrooShopStates> {
     }
     emit(AsrooShopAddToCartState());
   }
+
+
+  UserModel? userModel;
+
+  void getUserData() {
+    emit(AsrooShopGetUserDataLoadingState());
+
+    FirebaseFirestore.instance.collection('users').doc(uId).get().then((value) {
+      //print(value.data());
+      userModel = UserModel.fromJson(value.data()!);
+      emit(AsrooShopGetUserDataSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(AsrooShopGetUserDataErrorState(error.toString()));
+    });
+  }
+
+
+  List<String> languages = ['Arabic 🇸🇦', 'English 🇬🇧󠁧󠁢󠁥󠁮󠁧󠁿', 'France 🇫🇷󠁧󠁢󠁥󠁮󠁧󠁿'];
+  String? selectedLang;
 }

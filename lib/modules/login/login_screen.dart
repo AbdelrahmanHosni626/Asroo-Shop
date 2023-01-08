@@ -3,6 +3,7 @@ import 'package:asroo_shop/layout/HomeLayoutScreen.dart';
 import 'package:asroo_shop/modules/login/cubit/cubit.dart';
 import 'package:asroo_shop/modules/login/cubit/states.dart';
 import 'package:asroo_shop/shared/components/constants.dart';
+import 'package:asroo_shop/shared/network/local/cache_helper.dart';
 import 'package:asroo_shop/shared/styles/colors.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
@@ -28,8 +29,11 @@ class LoginScreen extends StatelessWidget {
       child: BlocConsumer<LoginCubit, LoginStates>(
         listener: (BuildContext context, state) {
           if (state is LoginSuccessState) {
-            showToast(text: 'Login Successful', state: ToastStates.success);
-            navigateTo(context, HomeLayoutScreen());
+            CacheHelper.saveData(key: 'uId', value: state.uId).then((value) {
+              print('when start app $uId');
+              showToast(text: 'Login successful', state: ToastStates.success);
+              navigateTo(context, HomeLayoutScreen());
+            });
           } else if (state is LoginErrorState) {
             showToast(
               text: state.error,
